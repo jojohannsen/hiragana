@@ -92,9 +92,9 @@ document.addEventListener('keydown', (event) => {
         case 'Enter':
             event.preventDefault();
             // Try to play audio if we're on a flashcard
-            const audioBtn = document.querySelector('.audio-button');
-            if (audioBtn) {
-                audioBtn.click();
+            const flashcard = document.querySelector('.flashcard-content');
+            if (flashcard && flashcard.onclick) {
+                flashcard.click();
             }
             break;
             
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showKeyboardHelp();
     
     // Add visual feedback to buttons on hover
-    const buttons = document.querySelectorAll('.nav-btn, .audio-button');
+    const buttons = document.querySelectorAll('.nav-btn');
     buttons.forEach(button => {
         button.addEventListener('mouseenter', () => {
             button.style.transform = button.disabled ? 'none' : 'translateY(-2px)';
@@ -162,7 +162,7 @@ document.body.addEventListener('htmx:afterSwap', (event) => {
         contentArea.style.opacity = '1';
         
         // Re-initialize button event listeners for new content
-        const buttons = contentArea.querySelectorAll('.nav-btn, .audio-button');
+        const buttons = contentArea.querySelectorAll('.nav-btn');
         buttons.forEach(button => {
             button.addEventListener('mouseenter', () => {
                 button.style.transform = button.disabled ? 'none' : 'translateY(-2px)';
