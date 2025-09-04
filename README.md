@@ -6,11 +6,8 @@ A web-based flashcard application for learning Japanese Hiragana characters, bui
 
 - **Summary View**: Visual grid of all 46 basic Hiragana characters organized by category
 - **Flashcard Mode**: Large-format cards showing character, romaji, and pronunciation
-- **Random Learning**: BEGIN button starts a randomized study session
-- **Navigation**: NEXT/PREVIOUS buttons for moving through cards
 - **Audio Support**: Click to hear authentic Japanese pronunciation for all 46 characters
 - **Responsive Design**: Works on desktop and mobile devices
-- **Keyboard Shortcuts**: Space/arrows for navigation, Enter for audio
 
 ## Quick Start
 
@@ -40,7 +37,7 @@ A web-based flashcard application for learning Japanese Hiragana characters, bui
 ## Project Structure
 
 ```
-hiragana-flashcards/
+hiragana/
 ├── app.py              # Main FastHTML application
 ├── seed_data.py        # Database initialization
 ├── requirements.txt    # Python dependencies
@@ -77,20 +74,11 @@ The application organizes Hiragana into traditional categories:
 - View all characters organized by category
 - Click any character to view as a flashcard
 - Click the audio button (🔊) to hear pronunciation
-- Use BEGIN to start a random study session
 
 ### Flashcard Mode
 - Large character display with romaji and pronunciation
-- Navigate with NEXT/PREVIOUS buttons
 - Click "Play Sound" button for audio
-- Use EXIT to return to summary view
-
-### Keyboard Shortcuts
-- `Space` or `→`: Next card
-- `←`: Previous card
-- `Enter`: Play audio
-- `Escape`: Exit to summary
-- `B`: Begin new session
+- Use "Back to Overview" button to return to summary view
 
 ## Audio Integration
 

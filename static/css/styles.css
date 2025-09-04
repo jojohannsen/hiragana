@@ -15,86 +15,11 @@ body {
     min-height: 100vh;
 }
 
-/* Navigation Controls - Always at Top */
-.nav-controls {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 1rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.begin-btn {
-    background: #4CAF50;
-    color: white;
-}
-
-.begin-btn:hover {
-    background: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-}
-
-.next-btn, .prev-btn {
-    background: #2196F3;
-    color: white;
-}
-
-.next-btn:hover, .prev-btn:hover {
-    background: #1976D2;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-}
-
-.exit-btn {
-    background: #f44336;
-    color: white;
-}
-
-.exit-btn:hover {
-    background: #d32f2f;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
-}
-
-.nav-btn.disabled {
-    background: #ccc;
-    color: #888;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.nav-btn.disabled:hover {
-    background: #ccc;
-    transform: none;
-    box-shadow: none;
-}
 
 /* Main Content Area */
 #content-area {
-    margin-top: 100px; /* Account for fixed nav */
     padding: 2rem;
-    min-height: calc(100vh - 100px);
+    min-height: 100vh;
 }
 
 /* Summary View Styles */
@@ -167,8 +92,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 100px);
+    min-height: 100vh;
     text-align: center;
+    padding: 2rem;
 }
 
 .flashcard-content {
@@ -226,20 +152,30 @@ body {
     border-top: 1px solid #e2e8f0;
 }
 
+.back-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    text-decoration: none;
+    color: white;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .nav-controls {
-        padding: 0.75rem;
-        flex-wrap: wrap;
-    }
-    
-    .nav-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-    }
     
     #content-area {
-        margin-top: 120px;
         padding: 1rem;
     }
     
@@ -266,10 +202,6 @@ body {
 }
 
 @media (max-width: 480px) {
-    .nav-btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.8rem;
-    }
     
     .flashcard-character {
         font-size: 4.5rem;

@@ -31,66 +31,7 @@ app.hdrs = (
     Script(src="/static/js/audio.js")
 )
 
-def get_current_session(session):
-    """Get or create learning session"""
-    if 'current_cards' not in session:
-        # Create randomized list of all characters
-        all_chars = list(characters())
-        random.shuffle(all_chars)
-        session['current_cards'] = [c.id for c in all_chars]
-        session['current_index'] = 0
-    return session
 
-def get_current_card(session):
-    """Get current card from session"""
-    session_data = get_current_session(session)
-    if not session_data['current_cards']:
-        return None
-    card_id = session_data['current_cards'][session_data['current_index']]
-    return characters[card_id]
-
-def navigation_buttons(show_begin=False, show_nav=False, show_exit=False, current_index=0, total_cards=0):
-    """Context-aware navigation buttons"""
-    buttons = []
-    
-    if show_begin:
-        buttons.append(Button('BEGIN', 
-            hx_post='/begin', 
-            hx_target='#content-area',
-            hx_swap='innerHTML',
-            cls='nav-btn begin-btn',
-            id='begin-btn'))
-    
-    if show_nav:
-        # Previous button (disabled if at start)
-        prev_disabled = current_index == 0
-        buttons.append(Button('PREVIOUS', 
-            hx_post='/previous', 
-            hx_target='#content-area',
-            hx_swap='innerHTML',
-            cls=f'nav-btn prev-btn {"disabled" if prev_disabled else ""}',
-            disabled=prev_disabled,
-            id='previous-btn'))
-        
-        # Next button (disabled if at end)
-        next_disabled = current_index >= total_cards - 1
-        buttons.append(Button('NEXT', 
-            hx_post='/next', 
-            hx_target='#content-area',
-            hx_swap='innerHTML',
-            cls=f'nav-btn next-btn {"disabled" if next_disabled else ""}',
-            disabled=next_disabled,
-            id='next-btn'))
-    
-    if show_exit:
-        buttons.append(Button('EXIT', 
-            hx_get='/', 
-            hx_target='body',
-            hx_swap='innerHTML',
-            cls='nav-btn exit-btn',
-            id='exit-btn'))
-    
-    return Div(*buttons, cls='nav-controls', id='nav-controls')
 
 def character_card(char):
     """Small character card for summary view"""
@@ -141,94 +82,46 @@ def get():
             Script(src="/static/js/audio.js")
         ),
         Body(
-            navigation_buttons(show_begin=True),
             Main(*content, id='content-area', cls='summary-view'),
             cls='summary-page'
         )
     )
 
-@rt("/flashcard")
-def get(session):
-    """Show current flashcard from session"""
-    char = get_current_card(session)
-    if not char:
-        return RedirectResponse('/')
-    
-    session_data = get_current_session(session)
-    current_index = session_data['current_index']
-    total_cards = len(session_data['current_cards'])
-    
-    return flashcard_content(char, current_index, total_cards)
 
 @rt("/flashcard/{card_id}")
-def get(card_id: int, session):
-    """Show specific flashcard and update session"""
+def get(card_id: int):
+    """Show specific flashcard"""
     char = characters[card_id]
-    
-    # Update session to reflect current card
-    session_data = get_current_session(session)
-    try:
-        session_data['current_index'] = session_data['current_cards'].index(card_id)
-    except ValueError:
-        # Card not in current session, add it
-        session_data['current_cards'] = [card_id]
-        session_data['current_index'] = 0
-    
-    current_index = session_data['current_index']
-    total_cards = len(session_data['current_cards'])
-    
-    return flashcard_content(char, current_index, total_cards)
+    return flashcard_content(char, 0, 1)
 
 def flashcard_content(char, current_index, total_cards):
     """Generate flashcard content"""
-    return Div(
-        navigation_buttons(show_nav=True, show_exit=True, 
-                          current_index=current_index, total_cards=total_cards),
-        Div(
-            Div(char.character, cls='flashcard-character'),
-            Div(char.romaji, cls='flashcard-romaji'), 
-            Div(char.pronunciation, cls='flashcard-pronunciation'),
-            Div(f"Card {current_index + 1} of {total_cards}", cls='card-counter'),
-            cls='flashcard-content',
-            onclick=f"playAudio('/audio/{char.id}')"
+    return Html(
+        Head(
+            Title(f"Hiragana: {char.character} - {char.romaji}"),
+            Link(rel="stylesheet", href="/static/css/styles.css"),
+            Script(src="/static/js/audio.js")
         ),
-        cls='flashcard-view'
+        Body(
+            Main(
+                Div(
+                    Div(char.character, cls='flashcard-character'),
+                    Div(char.romaji, cls='flashcard-romaji'), 
+                    Div(char.pronunciation, cls='flashcard-pronunciation'),
+                    Button('🔊 Play Sound', 
+                           onclick=f"playAudio('/audio/{char.id}')",
+                           cls='audio-button',
+                           type='button'),
+                    A('← Back to Overview', 
+                       href='/',
+                       cls='back-button'),
+                    cls='flashcard-content'
+                ),
+                cls='flashcard-view'
+            )
+        )
     )
 
-@rt("/begin")
-def post(session):
-    """Start new random learning session"""
-    # Reset session
-    session.pop('current_cards', None)
-    session.pop('current_index', None)
-    
-    # Get first card from new session
-    char = get_current_card(session)
-    if not char:
-        return Div(P("No characters available"), cls='error')
-    
-    session_data = get_current_session(session)
-    return flashcard_content(char, 0, len(session_data['current_cards']))
-
-@rt("/next")
-def post(session):
-    """Navigate to next card"""
-    session_data = get_current_session(session)
-    if session_data['current_index'] < len(session_data['current_cards']) - 1:
-        session_data['current_index'] += 1
-    
-    char = get_current_card(session)
-    return flashcard_content(char, session_data['current_index'], len(session_data['current_cards']))
-
-@rt("/previous")
-def post(session):
-    """Navigate to previous card"""
-    session_data = get_current_session(session)
-    if session_data['current_index'] > 0:
-        session_data['current_index'] -= 1
-    
-    char = get_current_card(session)
-    return flashcard_content(char, session_data['current_index'], len(session_data['current_cards']))
 
 @rt("/audio/{char_id}")
 def get(char_id: int):
