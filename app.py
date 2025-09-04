@@ -97,11 +97,8 @@ def character_card(char):
     return Div(
         Div(char.character, cls='char-large'),
         Div(char.romaji, cls='romaji-small'),
-        Button('🔊', 
-               onclick=f"playAudio('/audio/{char.id}')",
-               cls='audio-btn-small',
-               type='button'),
         cls='char-card',
+        onclick=f"playAudio('/audio/{char.id}')",
         hx_get=f'/flashcard/{char.id}',
         hx_target='#content-area',
         hx_swap='innerHTML'
@@ -191,12 +188,9 @@ def flashcard_content(char, current_index, total_cards):
             Div(char.character, cls='flashcard-character'),
             Div(char.romaji, cls='flashcard-romaji'), 
             Div(char.pronunciation, cls='flashcard-pronunciation'),
-            Button('🔊 Play Sound', 
-                   onclick=f"playAudio('/audio/{char.id}')",
-                   cls='audio-button',
-                   type='button'),
             Div(f"Card {current_index + 1} of {total_cards}", cls='card-counter'),
-            cls='flashcard-content'
+            cls='flashcard-content',
+            onclick=f"playAudio('/audio/{char.id}')"
         ),
         cls='flashcard-view'
     )
