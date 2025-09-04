@@ -1,0 +1,359 @@
+/* Hiragana Flashcard Application Styles */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Navigation Controls - Always at Top */
+.nav-controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.begin-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.begin-btn:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.next-btn, .prev-btn {
+    background: #2196F3;
+    color: white;
+}
+
+.next-btn:hover, .prev-btn:hover {
+    background: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.exit-btn {
+    background: #f44336;
+    color: white;
+}
+
+.exit-btn:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.nav-btn.disabled {
+    background: #ccc;
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.nav-btn.disabled:hover {
+    background: #ccc;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Main Content Area */
+#content-area {
+    margin-top: 100px; /* Account for fixed nav */
+    padding: 2rem;
+    min-height: calc(100vh - 100px);
+}
+
+/* Summary View Styles */
+.summary-view {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.category-section {
+    margin-bottom: 3rem;
+}
+
+.category-section h3 {
+    color: #4a5568;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    text-align: center;
+}
+
+.char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.char-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.char-card:hover {
+    border-color: #4CAF50;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+}
+
+.char-large {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.romaji-small {
+    font-size: 1rem;
+    color: #718096;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.audio-btn-small {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.audio-btn-small:hover {
+    background: rgba(76, 175, 80, 0.1);
+    transform: scale(1.1);
+}
+
+/* Flashcard View Styles */
+.flashcard-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 100px);
+    text-align: center;
+}
+
+.flashcard-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    max-width: 600px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.flashcard-character {
+    font-size: 8rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard-romaji {
+    font-size: 3rem;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+.flashcard-pronunciation {
+    font-size: 1.5rem;
+    color: #718096;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.audio-button {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    margin-bottom: 1rem;
+}
+
+.audio-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.audio-button:active {
+    transform: translateY(0);
+}
+
+.card-counter {
+    font-size: 0.9rem;
+    color: #a0aec0;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-controls {
+        padding: 0.75rem;
+        flex-wrap: wrap;
+    }
+    
+    .nav-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    #content-area {
+        margin-top: 120px;
+        padding: 1rem;
+    }
+    
+    .char-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .char-large {
+        font-size: 2rem;
+    }
+    
+    .flashcard-character {
+        font-size: 6rem;
+    }
+    
+    .flashcard-romaji {
+        font-size: 2.5rem;
+    }
+    
+    .flashcard-content {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .flashcard-character {
+        font-size: 4.5rem;
+    }
+    
+    .flashcard-romaji {
+        font-size: 2rem;
+    }
+    
+    .flashcard-pronunciation {
+        font-size: 1.2rem;
+    }
+    
+    .audio-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Loading and Error States */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.2rem;
+    color: #718096;
+}
+
+.error {
+    background: #fed7d7;
+    color: #c53030;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+/* Animation for smooth transitions */
+.flashcard-content {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HTMX loading indicator */
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+.htmx-request .htmx-indicator {
+    opacity: 1;
+}
+.htmx-request.htmx-indicator {
+    opacity: 1;
+}

@@ -1,0 +1,22 @@
+# FastHTML and core dependencies
+python-fasthtml>=0.2.0
+
+# ASGI server
+uvicorn>=0.23.0
+
+# Database
+fastlite>=0.0.8
+sqlite3
+
+# Web framework dependencies (included with FastHTML)
+starlette>=0.27.0
+htmx
+
+# Optional: For future TTS integration
+# pyttsx3>=2.90
+# gTTS>=2.3.0
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# black>=23.0.0
+# flake8>=6.0.0
