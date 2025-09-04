@@ -8,7 +8,7 @@ A web-based flashcard application for learning Japanese Hiragana characters, bui
 - **Flashcard Mode**: Large-format cards showing character, romaji, and pronunciation
 - **Random Learning**: BEGIN button starts a randomized study session
 - **Navigation**: NEXT/PREVIOUS buttons for moving through cards
-- **Audio Support**: Click to hear character pronunciation (placeholder for now)
+- **Audio Support**: Click to hear authentic Japanese pronunciation for all 46 characters
 - **Responsive Design**: Works on desktop and mobile devices
 - **Keyboard Shortcuts**: Space/arrows for navigation, Enter for audio
 
@@ -19,17 +19,22 @@ A web-based flashcard application for learning Japanese Hiragana characters, bui
    python seed_data.py
    ```
 
-2. **Install dependencies:**
+2. **Download audio files:**
+   ```bash
+   ./download_audio.sh
+   ```
+
+3. **Install dependencies:**
    ```bash
    pip install python-fasthtml uvicorn fastlite starlette
    ```
 
-3. **Run the application:**
+4. **Run the application:**
    ```bash
    python app.py
    ```
 
-4. **Open in browser:**
+5. **Open in browser:**
    Navigate to `http://localhost:5001`
 
 ## Project Structure
@@ -46,7 +51,9 @@ hiragana-flashcards/
 │   │   └── styles.css  # Application styles
 │   ├── js/
 │   │   └── audio.js    # Audio and interaction handling
-│   └── audio/          # Audio files (for future use)
+│   └── audio/          # MP3 pronunciation files (46 files)
+├── download_audio.sh   # Script to download audio files
+├── test_audio.py      # Audio file verification script
 └── README.md
 ```
 
@@ -85,10 +92,18 @@ The application organizes Hiragana into traditional categories:
 - `Escape`: Exit to summary
 - `B`: Begin new session
 
+## Audio Integration
+
+The application includes high-quality pronunciation audio for all 46 Hiragana characters:
+- **Source**: Professional recordings from ThoughtCo.com
+- **Format**: MP3 files optimized for web delivery
+- **Coverage**: Complete set covering all basic Hiragana
+- **Testing**: Use `python test_audio.py` to verify all files
+
 ## Future Enhancements
 
-- [ ] Audio file integration (MP3 files in static/audio/)
-- [ ] Text-to-speech generation for missing audio
+- [x] Audio file integration (MP3 files in static/audio/)
+- [ ] Offline audio caching for mobile devices
 - [ ] Progress tracking and statistics
 - [ ] Spaced repetition algorithm
 - [ ] Additional character sets (Katakana, Kanji)
